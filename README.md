@@ -15,6 +15,10 @@
 - redux store integration
 - update user state on sign in/up/out using firebase APIs
 - Fetch movies from tmdb
+- bugFix - update user state with dsiplay name and photo URL
+- bugFix - browse page should be visible after login only
+- unsubscribe to event Listner onAuthStateChanged callback
+- add hardcoded values to constants file
 
 # features
 

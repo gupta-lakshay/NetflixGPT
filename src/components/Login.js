@@ -7,15 +7,15 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { BKG_IMG, USER_AVATAR } from "../utils/constants";
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
   };
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [errorMsg, setErrorMsg] = useState(null);
   const name = useRef(null);
@@ -44,14 +44,14 @@ const Login = () => {
           console.log("Successful sign up", user);
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL:
-              "https://m.media-amazon.com/images/G/02/CerberusPrimeVideo-FN38FSBD/adult-2.png",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               // Profile updated!
               // using auth.currentUser as user does not have updated value as of now so we need to fetch that from auth
               const { uid, email, displayName, photoURL } = auth.currentUser;
               // update redux store state
+              // adding this so that user display name and photoURL is updated bcz createUserWithEmailAndPassword execution calls authStatechange and update the user state first
               dispatch(
                 addUser({
                   uid: uid,
@@ -60,7 +60,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -85,7 +84,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("Successful sign in", user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -98,10 +96,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/a73c4363-1dcd-4719-b3b1-3725418fd91d/fe1147dd-78be-44aa-a0e5-2d2994305a13/IN-en-20231016-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
-          alt="Netflix logo"
-        />
+        <img src={BKG_IMG} alt="Netflix background" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
