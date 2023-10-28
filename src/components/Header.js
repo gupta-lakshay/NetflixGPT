@@ -37,14 +37,16 @@ const Header = () => {
             photoURL: photoURL,
           })
         );
+        // always want user to access browse only if signed in
         navigate("/browse");
       } else {
         // User is signed out
         dispatch(removeUser());
+        // else redirect to login page
         navigate("/");
       }
     });
-
+    // Header can be loaded multiple times and everytime event listener will be added so we need to unsubscribe when component unmounts
     // unsubscribe event listner -> onAuthStateChanged when comp unmounts
     return () => unsubscribe();
   }, []);

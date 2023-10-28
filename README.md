@@ -19,6 +19,15 @@
 - bugFix - browse page should be visible after login only
 - unsubscribe to event Listner onAuthStateChanged callback
 - add hardcoded values to constants file
+- register for tmdb api and create an app and get access token
+- get data from TMDB nowplaying movie list
+- custom hook for nowPlayingMovies
+- create movie slice
+- update store with movie data
+- planning main and secondary container
+- fetch data for trailer video
+- update store with trailer video
+- embedded youtube video & make it autoplay & mute
 
 # features
 
