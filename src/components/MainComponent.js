@@ -6,7 +6,7 @@ const MainComponent = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
   //early return if movies is null
   if (movies === null) return;
-  const mainMovie = movies?.[0];
+  const mainMovie = movies?.[10];
   //   console.log("mainMovie", mainMovie);
   const { original_title, overview, id } = mainMovie;
   return (

@@ -28,6 +28,7 @@
 - fetch data for trailer video
 - update store with trailer video
 - embedded youtube video & make it autoplay & mute
+- added movie List in secondary container
 
 # features
 
