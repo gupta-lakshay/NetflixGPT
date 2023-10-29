@@ -6,11 +6,15 @@ import { useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { setLang } from "../utils/configSlice";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const showGptSearchView = useSelector((store) => store.gpt.showGptSearchView);
+
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -20,6 +24,15 @@ const Header = () => {
         // An error happened.
         navigate("/error");
       });
+  };
+  const handleGPTSearchClick = () => {
+    //Toggle GPT Search
+    // I want that when gptSearch button is clicked we switch the current page only to show gptSearch component
+    dispatch(toggleGptSearchView());
+  };
+  const handleLangChange = (e) => {
+    console.log(e.target.value);
+    dispatch(setLang(e.target.value));
   };
   // we want this code to be always present for auth logic
   useEffect(() => {
@@ -54,16 +67,39 @@ const Header = () => {
     <div className="absolute px-8 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
       <img className="w-36" src={LOGO} alt="Netflix logo" />
       {user && (
-        <div className="flex bg-gradient-to-br from-black rounded-full p-2">
-          <img
-            className="w-8 h-8 mt-2 mr-2"
-            alt="avatar"
-            src={user?.photoURL}
-          ></img>
-          <button className="font-bold text-white" onClick={handleSignOut}>
-            Sign Out
-          </button>
-        </div>
+        <>
+          <div className="flex bg-gradient-to-br from-black rounded-full p-2">
+            {showGptSearchView && (
+              <select
+                className="ml-3 bg-black rounded-lg text-white"
+                onChange={handleLangChange}
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option key={lang.identifier} value={lang.identifier}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+            )}
+            <button
+              className="py-1 px-4 mx-3 text-white  font-bold rounded-lg p-4 "
+              onClick={handleGPTSearchClick}
+            >
+              {showGptSearchView ? "🏠 Home" : "🔍 GPT Search"}
+            </button>
+            <img
+              className="w-8 h-8 mt-2 mr-2"
+              alt="avatar"
+              src={user?.photoURL}
+            ></img>
+            <button
+              className="font-bold text-white mr-4"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
+          </div>
+        </>
       )}
     </div>
   );

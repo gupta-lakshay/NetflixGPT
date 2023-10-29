@@ -29,6 +29,8 @@
 - update store with trailer video
 - embedded youtube video & make it autoplay & mute
 - added movie List in secondary container
+- GPT seach feature
+- multilingual suppport
 
 # features
 
