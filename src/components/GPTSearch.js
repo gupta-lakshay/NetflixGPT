@@ -5,13 +5,19 @@ import { BKG_IMG } from "../utils/constants";
 
 const GPTSearch = () => {
   return (
-    <div>
-      <div className="absolute -z-10">
-        <img src={BKG_IMG} alt="Netflix background" />
+    <>
+      <div className="fixed -z-10">
+        <img
+          className="h-screen object-cover"
+          src={BKG_IMG}
+          alt="Netflix background"
+        />
       </div>
-      <GPTSearchBar />
-      <GPTMovieSuggestions />
-    </div>
+      <div className="">
+        <GPTSearchBar />
+        <GPTMovieSuggestions />
+      </div>
+    </>
   );
 };
 

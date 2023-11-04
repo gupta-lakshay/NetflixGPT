@@ -31,6 +31,14 @@
 - added movie List in secondary container
 - GPT seach feature
 - multilingual suppport
+- OpenAI Key
+- GPT Search API call
+- fetched GPT Movie suggestions from TMDB
+- GPT Slice
+- Reused movielist component
+- Memoization for all types of movieLists and trailer video
+- added .env file, gitignored it
+- Responsive UI
 
 # features
 
